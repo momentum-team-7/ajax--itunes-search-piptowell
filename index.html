@@ -3,9 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="main.js" defer></script>
+  <script src="main.js" async></script>
   <title>Music Search</title>
 </head>
 <body>
+  <header>Totally Rad Music Site</header>
+  
+  <form id="search-form">
+    <input id="search-bar" type="text" 
+    placeholder="Whatcha wanna hear?">
+
+    <button id="search-button" 
+    type="submit">Search</button>
+
+  </form>
+
+  <div class="search-results">
+    <ul id="result-list"></ul>
+  </div>
+
+  <div id="player"></div>
+
 </body>
 </html>
