@@ -55,17 +55,26 @@ form.addEventListener('submit', (event) => {
 function renderMusicItem(music) {
     const musicEl = document.createElement('div')
     musicEl.className = 'music-card'
+
     let title = music.trackName
+    let artist = music.artistName
+    let album = music.collectionName
     // set div class?
     const artistEl = document.createElement('h3')
     const trackEl = document.createElement('h3')
     const albumEl = document.createElement('h4')
+
     trackEl.innerText = title
+    artistEl.innerText = artist
+    albumEl.innerText = album
+
     console.log('trackEl is', trackEl)
     // need to get data rendered from data object
     console.log('music is', music)
     // data.results.artistName = 
-    // div.appendChild(artistEl)
+    musicEl.appendChild(trackEl)
+    musicEl.appendChild(artistEl)
+    musicEl.appendChild(albumEl)
     searchResults.appendChild(musicEl)
 }
 
