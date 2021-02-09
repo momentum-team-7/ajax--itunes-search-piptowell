@@ -1,6 +1,6 @@
 const url = 'https://itunes.apple.com/search?term='
 const form = document.querySelector('#search-form')
-const resultList = document.querySelector('#result-list')
+const searchResults = document.querySelector('.search-results')
 
 form.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -8,12 +8,14 @@ form.addEventListener('submit', (event) => {
     console.log('searchInput is', searchInput)
 
     function search() {
-        fetch ('https://itunes.apple.com/search?term=' + searchInput)
+        fetch ('https://itunes.apple.com/search?term=' + searchInput + '&wrapperType="song"')
         .then(resp => resp.json())
         .then (data => {
             console.log(data)
-            let artistName = data.artistName
-            console.log(artistName)
+            for (let music of data.results) {
+                renderMusicItem(music)
+            } 
+            
         })
     }
 
@@ -23,6 +25,8 @@ form.addEventListener('submit', (event) => {
     // const noteTitle = document.querySelector('#note-title').value
     // createNote(noteText, noteTitle)
 })
+
+
 
 // fetch(urlBase + from)
 // .then(response => response.json())
@@ -48,8 +52,22 @@ form.addEventListener('submit', (event) => {
 //     })
 // }
 
-// function renderMusicItem(musicObj) {
-//     const musicEl = document.createEl('li')
-//     // need to get data rendered from data object
-//     resultList.appendChild(musicEl)
-// }
+function renderMusicItem(music) {
+    const musicEl = document.createElement('div')
+    musicEl.className = 'music-card'
+    let title = music.trackName
+    // set div class?
+    const artistEl = document.createElement('h3')
+    const trackEl = document.createElement('h3')
+    const albumEl = document.createElement('h4')
+    trackEl.innerText = title
+    console.log('trackEl is', trackEl)
+    // need to get data rendered from data object
+    console.log('music is', music)
+    // data.results.artistName = 
+    // div.appendChild(artistEl)
+    searchResults.appendChild(musicEl)
+}
+
+// format for getting data from json results
+// data.results[].artistName
