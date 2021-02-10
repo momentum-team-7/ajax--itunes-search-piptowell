@@ -11,6 +11,7 @@ form.addEventListener('submit', (event) => {
     console.log('searchInput is', searchInput)
 
     function search() {
+        // fetch ('nonsense') to verify error catch
         fetch ('https://itunes.apple.com/search?term=' + searchInput + '&wrapperType="song"')
         .then(resp => resp.json())
         .then (data => {
@@ -20,6 +21,8 @@ form.addEventListener('submit', (event) => {
             } 
             
         })
+        .catch(error =>
+            catchError() )
     }
     clearSearch()
     search()
@@ -94,19 +97,6 @@ function playSong(button){
     } 
 
 
-     /// mike's playMusic function
-// function playMusic(song) {
-//     let audio = document.querySelector("audio")
-//     console.log(song.firstElementChild)
-//     audio.src = song.firstElementChild.src
-// }
-
-
-
-
-
-
-
 
 function clearSearch () {
     let musics = document.querySelectorAll('.music-card')
@@ -115,3 +105,10 @@ function clearSearch () {
         song.remove();
     }
 }    
+
+function catchError() {
+    const errorEl = document.createElement('div')
+    errorEl.innerText = 'You messed up'
+    searchResults.appendChild(errorEl)
+
+}
