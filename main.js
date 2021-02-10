@@ -37,43 +37,75 @@ function renderMusicItem(music) {
     let artist = music.artistName
     let album = music.collectionName
     let albumArt = music.artworkUrl100
-    // let trackId = music.trackId
-    let previewUrl = music.previewUrl
 
 
-    const artistEl = document.createElement('h3')
-    const trackEl = document.createElement('h3')
-    const albumEl = document.createElement('h4')
+    const artistEl = document.createElement('p')
+    const trackEl = document.createElement('p')
+    const albumEl = document.createElement('p')
     const albumArtEl = document.createElement('img')
     const playButton = document.createElement('button')
-    // not sure what's going on here. who are you to judge?
-    playButton.innerText = 'play'
+    
 
+
+    let playAudio = document.createElement('div')
+    playAudio.className = 'play-button'
+
+    
+
+
+    playButton.innerText = 'Preview'
     trackEl.innerText = title
     artistEl.innerText = artist
     albumEl.innerText = album
     albumArtEl.src = albumArt
-    // need to pass these below to the other renderAudio function
-    // trackIdEl.innerHTML = trackId
-    previewUrl.innerText = previewUrl
+    
+    
+    playAudio.dataset.previewUrl = music.previewUrl // save attribute in the data set
+    playAudio.appendChild(playButton)
 
-
-    console.log('trackEl is', trackEl)
-    console.log('music is', music)
-
-    musicEl.appendChild(playButton)
+    musicEl.appendChild(playAudio)
+    
+    
     musicEl.appendChild(albumArtEl)
     musicEl.appendChild(trackEl)
     musicEl.appendChild(artistEl)
     musicEl.appendChild(albumEl)
-    musicEl.appendChild(trackIdEl)
-    musicEl.appendChild(previewUrlEl)
-
 
     searchResults.appendChild(musicEl)
 
 
+
+    playButton.addEventListener('click', (event) => {
+        playSong(event.target)
+
+
+
+        
+    })
+
+
 }
+
+function playSong(button){
+    let audio = document.querySelector('audio')
+    console.log(audio)
+        audio.src = button.parentElement.dataset.previewUrl
+        console.log(button.parentElement.dataset.previewUrl)
+    } 
+
+
+     /// mike's playMusic function
+// function playMusic(song) {
+//     let audio = document.querySelector("audio")
+//     console.log(song.firstElementChild)
+//     audio.src = song.firstElementChild.src
+// }
+
+
+
+
+
+
 
 
 function clearSearch () {
@@ -83,12 +115,3 @@ function clearSearch () {
         song.remove();
     }
 }    
-
-
-// function renderAudio (musicEl) {
-//     playButton.addEventListener('click', (event) => {
-    
-//         player.src = previewUrl
-    
-//     })
-// }
