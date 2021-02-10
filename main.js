@@ -6,7 +6,7 @@ const player = document.querySelector('audio-player')
 
 form.addEventListener('submit', (event) => {
     event.preventDefault()
-    // clearSearch()
+    clearSearch()
     let searchInput = document.querySelector('.search-bar').value
     console.log('searchInput is', searchInput)
 
@@ -21,8 +21,8 @@ form.addEventListener('submit', (event) => {
             
         })
     }
+    clearSearch()
     search()
-    renderAudio()
 
 })
 
@@ -44,10 +44,11 @@ function renderMusicItem(music) {
     const albumEl = document.createElement('h4')
     const albumArtEl = document.createElement('img')
     // not sure what's going on here. who are you to judge?
+
     const trackIdEl = document.createElement('p')
     const previewUrlEl = document.createElement('p')
     const playButton = document.createElement('button')
-
+    playButton.innerText = 'play'
 
     trackEl.innerText = title
     artistEl.innerText = artist
@@ -71,23 +72,26 @@ function renderMusicItem(music) {
 
 
     searchResults.appendChild(musicEl)
+
+
 }
 
 
-// function clearSearch () {
-//     let musics = document.querySelectorAll('.search-results')
-//     for (let song of musics) {
-//         song.remove();
-//     }
+function clearSearch () {
+    let musics = document.querySelectorAll('.musicEl')
+    for (let song of musics) {
+        song.remove();
+    }
+}    
 
 // }
 
 // we need to pull a variable out of the function above and pass it to the function below
 
-function renderAudio (musicEl) {
-    playButton.addEventListener('click', (event) => {
+// function renderAudio (musicEl) {
+//     playButton.addEventListener('click', (event) => {
     
-        player.src = previewUrl
+//         player.src = previewUrl
     
-    })
-}
+//     })
+// }
