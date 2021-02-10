@@ -31,11 +31,13 @@ form.addEventListener('submit', (event) => {
 function renderMusicItem(music) {
     const musicEl = document.createElement('div')
     musicEl.className = 'music-card'
+
+
     let title = music.trackName
     let artist = music.artistName
     let album = music.collectionName
     let albumArt = music.artworkUrl100
-    let trackId = music.trackId
+    // let trackId = music.trackId
     let previewUrl = music.previewUrl
 
 
@@ -43,11 +45,8 @@ function renderMusicItem(music) {
     const trackEl = document.createElement('h3')
     const albumEl = document.createElement('h4')
     const albumArtEl = document.createElement('img')
-    // not sure what's going on here. who are you to judge?
-
-    const trackIdEl = document.createElement('p')
-    const previewUrlEl = document.createElement('p')
     const playButton = document.createElement('button')
+    // not sure what's going on here. who are you to judge?
     playButton.innerText = 'play'
 
     trackEl.innerText = title
@@ -55,8 +54,8 @@ function renderMusicItem(music) {
     albumEl.innerText = album
     albumArtEl.src = albumArt
     // need to pass these below to the other renderAudio function
-    trackIdEl.innerHTML = trackId
-    previewUrl.innerHTML = previewUrl
+    // trackIdEl.innerHTML = trackId
+    previewUrl.innerText = previewUrl
 
 
     console.log('trackEl is', trackEl)
@@ -78,15 +77,13 @@ function renderMusicItem(music) {
 
 
 function clearSearch () {
-    let musics = document.querySelectorAll('.musicEl')
+    let musics = document.querySelectorAll('.music-card')
+    console.log(document.querySelectorAll('.music-card'))
     for (let song of musics) {
         song.remove();
     }
 }    
 
-// }
-
-// we need to pull a variable out of the function above and pass it to the function below
 
 // function renderAudio (musicEl) {
 //     playButton.addEventListener('click', (event) => {
