@@ -10,14 +10,22 @@ form.addEventListener('submit', (event) => {
     let searchInput = document.querySelector('.search-bar').value
     console.log('searchInput is', searchInput)
 
+
+
     function search() {
         // fetch ('nonsense') to verify error catch
         fetch ('https://itunes.apple.com/search?term=' + searchInput + '&wrapperType="song"')
         .then(resp => resp.json())
         .then (data => {
-            console.log(data)
+            console.log(data.results)
             for (let music of data.results) {
-                renderMusicItem(music)
+                if (data.results.length > 0) {
+                renderMusicItem(music);
+                } else {
+                    const noResultsEl = document.createElement('div');
+                    noResultsEl.innerText = 'Sorry! No results.';
+                    searchResults.appendChild(errorEl);
+                }
             } 
             
         })
@@ -37,57 +45,52 @@ function renderMusicItem(music) {
 
 
     let title = music.trackName
-    let artist = music.artistName
-    let album = music.collectionName
-    let albumArt = music.artworkUrl100
+    const trackEl = document.createElement('h4')
+    trackEl.innerText = title
+    musicEl.appendChild(trackEl)
 
-
-    const artistEl = document.createElement('p')
-    const trackEl = document.createElement('p')
-    const albumEl = document.createElement('p')
-    const albumArtEl = document.createElement('img')
-    const playButton = document.createElement('button')
     
+    
+    let artist = music.artistName
+    const artistEl = document.createElement('h4')
+    artistEl.innerText = artist
+    musicEl.appendChild(artistEl)
+
+    
+    
+    let album = music.collectionName
+    const albumEl = document.createElement('p')
+    albumEl.innerText = album
+    musicEl.appendChild(albumEl)
+
+    
+    
+    let albumArt = music.artworkUrl100
+    const albumArtEl = document.createElement('img')
+    albumArtEl.src = albumArt
+    musicEl.appendChild(albumArtEl)
+
+
+    const playButton = document.createElement('button')
+    playButton.innerText = 'Preview'
+
 
 
     let playAudio = document.createElement('div')
     playAudio.className = 'play-button'
-
-    
-
-
-    playButton.innerText = 'Preview'
-    trackEl.innerText = title
-    artistEl.innerText = artist
-    albumEl.innerText = album
-    albumArtEl.src = albumArt
-    
-    
     playAudio.dataset.previewUrl = music.previewUrl // save attribute in the data set
     playAudio.appendChild(playButton)
-
     musicEl.appendChild(playAudio)
     
     
-    musicEl.appendChild(albumArtEl)
-    musicEl.appendChild(trackEl)
-    musicEl.appendChild(artistEl)
-    musicEl.appendChild(albumEl)
-
     searchResults.appendChild(musicEl)
 
-
-
     playButton.addEventListener('click', (event) => {
-        playSong(event.target)
-
-
-
-        
+        playSong(event.target)        
     })
-
-
 }
+
+
 
 function playSong(button){
     let audio = document.querySelector('audio')
@@ -106,9 +109,10 @@ function clearSearch () {
     }
 }    
 
+
 function catchError() {
     const errorEl = document.createElement('div')
-    errorEl.innerText = 'You messed up'
+    errorEl.innerText = 'Error! Try your request again.'
     searchResults.appendChild(errorEl)
 
 }
