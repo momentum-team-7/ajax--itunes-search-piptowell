@@ -18,21 +18,21 @@ form.addEventListener('submit', (event) => {
         .then(resp => resp.json())
         .then (data => {
             console.log(data.results)
-            for (let music of data.results) {
-                if (data.results.length > 0) {
-                renderMusicItem(music);
-                } else {
-                    const noResultsEl = document.createElement('div');
-                    noResultsEl.innerText = 'Sorry! No results.';
-                    searchResults.appendChild(errorEl);
+            if (data.results.length > 0) {
+                for (let music of data.results) {
+                    renderMusicItem(music);
                 }
+            } else {
+                console.log('no results')
+                const noResultsEl = document.createElement('div');
+                noResultsEl.innerText = 'Sorry! No results.';
+                searchResults.appendChild(noResultsEl);
             } 
-            
         })
-        .catch(error =>
-            catchError() )
+        .catch(error => {
+            console.log('error is', error)
+            catchError() })
     }
-    clearSearch()
     search()
 
 })
